@@ -6,8 +6,9 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
+import android.util.Log
 
-class LocationClass {
+class LocationClass(context: Context) {
 
     lateinit var locationManager: LocationManager
     private var locationGPS: Location? = null
@@ -18,9 +19,14 @@ class LocationClass {
     var latNetwork: Double = 0.0
     var longNetwork: Double = 0.0
 
+    init {
+        latGPS = getLocation(context).latitude
+        longGPS = getLocation(context).longitude
+        Log.e("CLs", "In init")
+    }
     @SuppressLint("MissingPermission")
     //Returns a location object to be used
-    private fun getLocation(context: Context): Location {
+    fun getLocation(context: Context): Location {
 
         locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
@@ -75,6 +81,8 @@ class LocationClass {
             return locationNetwork!!
         }
     }
+
+
 
 
 }
